@@ -1,10 +1,128 @@
 
 /* =========================================
-   WEBHUNT — WEBSITE RENDERING SYSTEM
+   WEBHUNT — WEBSITE DISCOVERY SYSTEM
+   Discover. Explore. Connect.
 ========================================= */
 
 
-const websites = [];
+/* WEBSITE DATABASE */
+
+const websites = [
+
+    {
+        name: "PhET",
+        description: "Explore interactive, research-based simulations for physics, chemistry, biology, earth science and mathematics.",
+        url: "https://phet.colorado.edu/",
+        category: "Education",
+        access: "Free",
+        recommendation: "Free Recommendation",
+        affiliate: false,
+        featured: true
+    },
+
+    {
+        name: "Mathigon",
+        description: "Learn mathematics through interactive courses, virtual manipulatives, puzzles and visual activities.",
+        url: "https://mathigon.org/",
+        category: "Education",
+        access: "Free",
+        recommendation: "Free Recommendation",
+        affiliate: false,
+        featured: true
+    },
+
+    {
+        name: "NRICH",
+        description: "Build mathematical problem-solving skills with free activities, puzzles and teacher resources from the University of Cambridge.",
+        url: "https://nrich.maths.org/",
+        category: "Education",
+        access: "Free",
+        recommendation: "Free Recommendation",
+        affiliate: false,
+        featured: false
+    },
+
+    {
+        name: "Learn.Genetics",
+        description: "Explore genetics, cell biology, evolution and human health through interactive science learning resources from the University of Utah.",
+        url: "https://learn.genetics.utah.edu/",
+        category: "Education",
+        access: "Free Educational Resources",
+        recommendation: "Free Recommendation",
+        affiliate: false,
+        featured: false
+    },
+
+    {
+        name: "ChemCollective",
+        description: "Practice chemistry concepts with virtual labs, simulations, tutorials and scenario-based activities.",
+        url: "https://chemcollective.org/",
+        category: "Education",
+        access: "Free",
+        recommendation: "Free Recommendation",
+        affiliate: false,
+        featured: false
+    },
+
+    {
+        name: "OpenLearn",
+        description: "Study free Open University courses, articles, videos and interactive learning resources across many subjects.",
+        url: "https://www.open.edu/openlearn/",
+        category: "Education",
+        access: "Free Courses",
+        recommendation: "Free Recommendation",
+        affiliate: false,
+        featured: true
+    },
+
+    {
+        name: "Class Central",
+        description: "Discover and compare online courses from universities and learning providers, including free and paid options.",
+        url: "https://www.classcentral.com/",
+        category: "Education",
+        access: "Free & Paid Courses",
+        recommendation: "Free Recommendation",
+        affiliate: false,
+        featured: false
+    },
+
+    {
+        name: "Zooniverse",
+        description: "Take part in real research by helping scientists classify data in projects across science, history, nature and more.",
+        url: "https://www.zooniverse.org/",
+        category: "Education",
+        access: "Free Participation",
+        recommendation: "Free Recommendation",
+        affiliate: false,
+        featured: true
+    },
+
+    {
+        name: "GCFGlobal",
+        description: "Build practical digital, work and everyday skills with free, self-paced lessons.",
+        url: "https://edu.gcfglobal.org/",
+        category: "Education",
+        access: "Free Learning Resources",
+        recommendation: "Free Recommendation",
+        affiliate: false,
+        featured: false
+    },
+
+    {
+        name: "BetterExplained",
+        description: "Understand mathematics through intuitive, visual explanations, articles and guided lessons.",
+        url: "https://betterexplained.com/",
+        category: "Education",
+        access: "Free Articles; Paid Products",
+        recommendation: "Free Recommendation",
+        affiliate: false,
+        featured: false
+    }
+
+];
+
+
+/* WEBSITE CATEGORIES */
 
 const categories = [
     "AI Tools",
@@ -68,15 +186,18 @@ function createWebsiteCard(website) {
 
         <span class="website-category"></span>
 
-        <div>
-            ${website.affiliate
-            ? '<span class="affiliate-label">Affiliate</span>'
-            : ''}
+        <div class="website-labels">
+            <span class="access-label"></span>
+            <span class="recommendation-label"></span>
         </div>
+
+        ${website.affiliate
+            ? '<span class="affiliate-label">Affiliate</span>'
+            : ''
+        }
 
         ${website.url
             ? `<a class="visit-button"
-                  href="${website.url}"
                   target="_blank"
                   rel="noopener noreferrer">
                   Visit Website
@@ -89,8 +210,23 @@ function createWebsiteCard(website) {
     `;
 
     card.querySelector("h3").textContent = website.name;
+
     card.querySelector("p").textContent = website.description;
-    card.querySelector(".website-category").textContent = website.category;
+
+    card.querySelector(".website-category").textContent =
+        website.category;
+
+    card.querySelector(".access-label").textContent =
+        website.access;
+
+    card.querySelector(".recommendation-label").textContent =
+        website.recommendation;
+
+    const visitButton = card.querySelector(".visit-button");
+
+    if (website.url && visitButton.tagName === "A") {
+        visitButton.href = website.url;
+    }
 
     return card;
 }
@@ -113,7 +249,8 @@ function renderWebsites() {
         const matchesSearch =
             website.name.toLowerCase().includes(searchQuery) ||
             website.description.toLowerCase().includes(searchQuery) ||
-            website.category.toLowerCase().includes(searchQuery);
+            website.category.toLowerCase().includes(searchQuery) ||
+            website.access.toLowerCase().includes(searchQuery);
 
         return matchesCategory && matchesSearch;
     });
@@ -141,12 +278,14 @@ function renderFeaturedWebsites() {
     );
 
     featuredWebsites.forEach(website => {
+
         const card = createWebsiteCard(website);
 
         card.classList.remove("website-card");
         card.classList.add("featured-card");
 
         featuredGrid.appendChild(card);
+
     });
 }
 
@@ -268,6 +407,6 @@ if (yearElement) {
 
 renderWebsites();
 
-renderFeaturedWebsites();
+renderFeaturedWebsites(); 
 
 console.log("WEBHUNT JavaScript initialized successfully.");

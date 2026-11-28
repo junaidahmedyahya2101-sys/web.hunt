@@ -636,12 +636,48 @@ ul {
     background: var(--blue);
 }
 
+
+/* WEBSITE ACCESS & RECOMMENDATION LABELS */
+
+.website-labels {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.access-label,
+.recommendation-label {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.access-label {
+    background: rgba(0, 217, 255, 0.08);
+    border: 1px solid rgba(0, 217, 255, 0.18);
+    color: var(--cyan);
+}
+
+.recommendation-label {
+    background: rgba(37, 99, 255, 0.10);
+    border: 1px solid rgba(37, 99, 255, 0.22);
+    color: #8EADFF;
+}
+
+/* AFFILIATE LABEL */
+
 .affiliate-label {
     display: inline-block;
     color: #E5BD71;
     font-size: 10px;
     margin-left: 8px;
 }
+
 
 .empty-message {
     text-align: center;
